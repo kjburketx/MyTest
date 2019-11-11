@@ -1,0 +1,32 @@
+#!/usr/bin/bash
+
+
+#############################################
+#createTestDir
+#Create test directory structure for MyTest utilites
+#############################################
+
+
+#Globals
+CWD=`pwd`
+TSTDIR=myTest
+#Test results
+RESULTS=0
+
+#Destroy test dir
+if [[ -d  ${TSTDIR} ]]; then
+	rm -r $TSTDIR
+fi
+
+#Create test dir
+mkdir ${TSTDIR}
+chmod 1755 ${TSTDIR}
+
+##Test Case1
+#if [[ ! -d ${TSTDIR} ]]; then
+	#print "$0: Error: ${TSTDIR}
+
+for fn in  "0.1" "1.1.1" "2.1.2" "2.1.3"
+do
+touch ${TSTDIR}/${fn}
+done

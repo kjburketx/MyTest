@@ -1,0 +1,55 @@
+#!/usr/bin/perl -d
+
+################doc-netconn#################
+#Use lsof to capture IPv4 connection information
+
+########ChangeLog####################
+#2019/10/23 kjb Nexus
+
+
+use lib '/home/kjb/lib/perl5';
+
+
+use Getopt::Long;
+
+
+##########Globals Vars##############
+my $interval;
+my $count;
+
+
+###############Global Subs############
+
+sub usage(){
+	printf("USAGE: %s --interval=<seconds> --count=<number>\n",$_0);
+}
+
+GetOptions(
+"interval=i" => \$interval,
+"count=i" => \$count ) or usage();
+
+####################Main##########################
+my $retval;
+my $TSTAMP;
+
+
+$TSTAMP=`/usr/bin/date --iso-8601="seconds"`;
+chomp $TSTAMP;
+
+$outval=`/usr/bin/lsof -i4 `;
+chomp $outval;
+
+$retval=$?;
+
+if ($retval == 0 ) {
+printf("TSTAMP=%s\n%s\n",$TSTAMP,$outval);
+}else{
+printf("%s: Error running lsof... check output!!!\n",$ARGV[0]);
+exit(-2);
+}
+
+
+exit(0);
+
+
+######################Main - End###################
